@@ -1,0 +1,22 @@
+{
+    "name": "njh/twig-html-helpers",
+    "description": "",
+    "keywords": ["twig","html","tag"],
+    "homepage": "https://github.com/njh/twig-html-helpers",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicholas Humfrey",
+            "email": "njh@aelius.com",
+            "homepage": "http://www.aelius.com/njh/"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.4",
+        "twig/twig": "1.*"
+    },
+    "autoload": {
+        "psr-0": { "Twig_Extension_HTMLHelpers": "lib/" }
+    }
+}
