@@ -1,6 +1,6 @@
 {
     "name": "njh/twig-html-helpers",
-    "description": "",
+    "description": "Rails style view helpers for HTML tags in PHP Twig",
     "keywords": ["twig","html","tag"],
     "homepage": "https://github.com/njh/twig-html-helpers",
     "type": "library",
