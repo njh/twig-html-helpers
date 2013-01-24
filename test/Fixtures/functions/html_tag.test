@@ -1,0 +1,8 @@
+--TEST--
+"html_tag" function
+--TEMPLATE--
+{{ html_tag('br') }}
+--DATA--
+return array()
+--EXPECT--
+<br />

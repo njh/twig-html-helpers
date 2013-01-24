@@ -16,6 +16,9 @@
         "php": ">=5.2.4",
         "twig/twig": "1.*"
     },
+    "require-dev": {
+        "phpunit/PHPUnit": ">=3.5.15"
+    },
     "autoload": {
         "psr-0": { "Twig_Extension_HTMLHelpers": "lib/" }
     }
