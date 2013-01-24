@@ -9,21 +9,21 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
     public function getFunctions() {
         $options = array('needs_environment' => true, 'is_safe' => array('html'));
         return array(
-            new Twig_SimpleFunction('html_tag', array($this, 'htmlTag'), $options),
+            new Twig_SimpleFunction('check_box_tag', array($this, 'checkBoxTag'), $options),
             new Twig_SimpleFunction('content_tag', array($this, 'contentTag'), $options),
-            new Twig_SimpleFunction('link_tag', array($this, 'linkTag'), $options),
+            new Twig_SimpleFunction('hidden_field_tag', array($this, 'hiddenFieldTag'), $options),
+            new Twig_SimpleFunction('html_tag', array($this, 'htmlTag'), $options),
             new Twig_SimpleFunction('image_tag', array($this, 'imageTag'), $options),
             new Twig_SimpleFunction('input_tag', array($this, 'inputTag'), $options),
-            new Twig_SimpleFunction('text_field_tag', array($this, 'textFieldTag'), $options),
-            new Twig_SimpleFunction('text_area_tag', array($this, 'textAreaTag'), $options),
-            new Twig_SimpleFunction('hidden_field_tag', array($this, 'hiddenFieldTag'), $options),
-            new Twig_SimpleFunction('password_field_tag', array($this, 'passwordFieldTag'), $options),
-            new Twig_SimpleFunction('radio_button_tag', array($this, 'radioButtonTag'), $options),
-            new Twig_SimpleFunction('check_box_tag', array($this, 'checkBoxTag'), $options),
             new Twig_SimpleFunction('label_tag', array($this, 'labelTag'), $options),
             new Twig_SimpleFunction('labelled_text_field_tag', array($this, 'labeledTextFieldTag'), $options),
-            new Twig_SimpleFunction('submit_tag', array($this, 'submitTag'), $options),
+            new Twig_SimpleFunction('link_tag', array($this, 'linkTag'), $options),
+            new Twig_SimpleFunction('password_field_tag', array($this, 'passwordFieldTag'), $options),
+            new Twig_SimpleFunction('radio_button_tag', array($this, 'radioButtonTag'), $options),
             new Twig_SimpleFunction('reset_tag', array($this, 'resetTag'), $options),
+            new Twig_SimpleFunction('submit_tag', array($this, 'submitTag'), $options),
+            new Twig_SimpleFunction('text_area_tag', array($this, 'textAreaTag'), $options),
+            new Twig_SimpleFunction('text_field_tag', array($this, 'textFieldTag'), $options),
         );
     }
 
