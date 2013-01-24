@@ -1,7 +1,7 @@
 Twig HTML Helpers Extension
 ==========================
 
-This Twig extension adds the following Rails style HTML helpers:
+This [PHP Twig] extension adds the following Rails style HTML helpers:
 
 * ```check_box_tag```
 * ```content_tag```
@@ -20,11 +20,10 @@ This Twig extension adds the following Rails style HTML helpers:
 * ```text_field_tag```
 
 
-To use them, first add them to your ```composer.json```:
+To use them, first add the extension to your ```composer.json```:
 
     "require": {
-        "php": ">=5.2.4",
-        "njh/njh/twig-html-helpers": "*"
+        "njh/twig-html-helpers": "*"
     },
 
 Then load it into your environment:
@@ -36,4 +35,7 @@ Then load it into your environment:
 You can then use them in your Twig templates:
 
     {{ link_tag('http://www.example.com/') }}
-    
+
+
+
+[PHP Twig]: http://twig.sensiolabs.org
