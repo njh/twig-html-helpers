@@ -21,6 +21,7 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
             new Twig_SimpleFunction('password_field_tag', array($this, 'passwordFieldTag'), $options),
             new Twig_SimpleFunction('radio_button_tag', array($this, 'radioButtonTag'), $options),
             new Twig_SimpleFunction('reset_tag', array($this, 'resetTag'), $options),
+            new Twig_SimpleFunction('select_tag', array($this, 'selectTag'), $options),
             new Twig_SimpleFunction('submit_tag', array($this, 'submitTag'), $options),
             new Twig_SimpleFunction('text_area_tag', array($this, 'textAreaTag'), $options),
             new Twig_SimpleFunction('text_field_tag', array($this, 'textFieldTag'), $options),
@@ -159,13 +160,13 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
             {
                 $arr = array_merge(array('selected' => 'selected'),$arr);
             }
-            $opts .= content_tag('option', $key, $arr);
+            $opts .= $this->contentTag($env, 'option', $key, $arr);
         }
         $html_options = array_merge(
             array('name' => $name, 'id' => $name),
             $html_options
         );
-        return "<select".$this->tagOptions($env,$html_options).">$opts</select>";
+        return "<select".$this->tagOptions($env, $html_options).">$opts</select>";
     }
 
     public function submitTag(Twig_Environment $env, $name = '', $value = 'Submit', $options = array())

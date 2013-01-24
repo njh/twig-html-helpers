@@ -52,6 +52,10 @@ $string = <<<EOF
   </p>
 
   <p>
+    {{ select_tag('format', {option1: 'Option 1', option2: 'Option 2'}) }}
+  </p>
+
+  <p>
     {{ reset_tag() }} {{ submit_tag() }}
   </p>
 </form>
