@@ -23,7 +23,7 @@ This [PHP Twig] extension adds the following Rails style HTML helpers:
 To use them, first add the extension to your ```composer.json```:
 
     "require": {
-        "njh/twig-html-helpers": "*"
+        "njh/twig-html-helpers": "dev-master"
     },
 
 Then load it into your environment:
