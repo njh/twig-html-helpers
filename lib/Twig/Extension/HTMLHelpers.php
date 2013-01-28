@@ -44,7 +44,7 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         return "<$name".$this->tagOptions($env, $options)." />";
     }
    
-    public function contentTag(Twig_Environment $env, $name, $content, $options=array()) {
+    public function contentTag(Twig_Environment $env, $name, $content='', $options=array()) {
         return "<$name".$this->tagOptions($env, $options).">".
                twig_escape_filter($env, $content).
                "</$name>";
