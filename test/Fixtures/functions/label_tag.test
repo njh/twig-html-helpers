@@ -1,0 +1,10 @@
+--TEST--
+"label_tag" function
+--TEMPLATE--
+{{ label_tag('first_name') }}
+{{ label_tag('last_name', 'Last name') }}
+--DATA--
+return array();
+--EXPECT--
+<label for="first_name" id="label_for_first_name">First Name: </label>
+<label for="last_name" id="label_for_last_name">Last name</label>

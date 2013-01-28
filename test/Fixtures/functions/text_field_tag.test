@@ -1,0 +1,10 @@
+--TEST--
+"text_field_tag" function
+--TEMPLATE--
+{{ text_field_tag('name1') }}
+{{ text_field_tag('name2', 'value2') }}
+--DATA--
+return array();
+--EXPECT--
+<input type="text" name="name1" id="name1" />
+<input type="text" name="name2" id="name2" value="value2" />

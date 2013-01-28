@@ -1,0 +1,16 @@
+--TEST--
+"content_tag" function
+--TEMPLATE--
+{{ content_tag('p') }}
+{{ content_tag('i', options={class: 'icon-chevron'}) }}
+{{ content_tag('p', 'Hello World') }}
+{{ content_tag('div', 'Wine & Cheese') }}
+{{ content_tag('a', '<Click Here>', {href: "?&foo=bar"}) }}
+--DATA--
+return array();
+--EXPECT--
+<p></p>
+<i class="icon-chevron"></i>
+<p>Hello World</p>
+<div>Wine &amp; Cheese</div>
+<a href="?&amp;foo=bar">&lt;Click Here&gt;</a>

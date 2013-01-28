@@ -1,0 +1,10 @@
+--TEST--
+"radio_button_tag" function
+--TEMPLATE--
+{{ radio_button_tag('name1', 'value1') }}
+{{ radio_button_tag('name2', 'value2', 'value2') }}
+--DATA--
+return array();
+--EXPECT--
+<input type="radio" name="name1" id="name1_value1" value="value1" />
+<input type="radio" name="name2" id="name2_value2" value="value2" checked="checked" />

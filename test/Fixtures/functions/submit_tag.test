@@ -1,0 +1,10 @@
+--TEST--
+"reset_tag" function
+--TEMPLATE--
+{{ reset_tag() }}
+{{ reset_tag('name1', 'value1') }}
+--DATA--
+return array();
+--EXPECT--
+<input type="reset" value="Reset" />
+<input type="reset" name="name1" id="name1" value="value1" />

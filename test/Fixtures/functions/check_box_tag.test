@@ -1,0 +1,11 @@
+--TEST--
+"check_box_tag" function
+--TEMPLATE--
+{{ check_box_tag('name1', 'value1') }}
+{{ check_box_tag('name2', 'value2') }}
+--DATA--
+$_REQUEST['name2'] = 'value2';
+return array();
+--EXPECT--
+<input type="checkbox" name="name1" id="name1" value="value1" />
+<input type="checkbox" name="name2" id="name2" value="value2" checked="checked" />

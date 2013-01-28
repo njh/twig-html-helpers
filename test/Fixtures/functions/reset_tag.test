@@ -1,0 +1,10 @@
+--TEST--
+"submit_tag" function
+--TEMPLATE--
+{{ submit_tag() }}
+{{ submit_tag('name1', 'value1') }}
+--DATA--
+return array();
+--EXPECT--
+<input type="submit" value="Submit" />
+<input type="submit" name="name1" id="name1" value="value1" />

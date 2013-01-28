@@ -1,0 +1,14 @@
+--TEST--
+"link_tag" function
+--TEMPLATE--
+{{ link_tag('Title', 'http://www.example.com/') }}
+{{ link_tag('http://www.example.com/') }}
+{{ link_tag('http://www.example.com/foo?a=1&b=2') }}
+{{ link_tag('Salt & Papper', 'http://www.example.com/') }}
+--DATA--
+return array();
+--EXPECT--
+<a href="http://www.example.com/">Title</a>
+<a href="http://www.example.com/">http://www.example.com/</a>
+<a href="http://www.example.com/foo?a=1&amp;b=2">http://www.example.com/foo?a=1&amp;b=2</a>
+<a href="http://www.example.com/">Salt &amp; Papper</a>

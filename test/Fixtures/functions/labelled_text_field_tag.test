@@ -1,0 +1,10 @@
+--TEST--
+"labelled_text_field_tag" function
+--TEMPLATE--
+{{ labelled_text_field_tag('first_name') }}
+{{ labelled_text_field_tag('last_name', 'value') }}
+--DATA--
+return array();
+--EXPECT--
+<label for="first_name" id="label_for_first_name">First Name: </label><input type="text" name="first_name" id="first_name" />
+<label for="last_name" id="label_for_last_name">Last Name: </label><input type="text" name="last_name" id="last_name" value="value" />

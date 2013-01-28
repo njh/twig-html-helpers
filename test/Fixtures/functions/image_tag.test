@@ -1,0 +1,10 @@
+--TEST--
+"image_tag" function
+--TEMPLATE--
+{{ image_tag('image.jpg') }}
+{{ image_tag('image.jpg', {width: 100, height: 10}) }}
+--DATA--
+return array();
+--EXPECT--
+<img src="image.jpg" />
+<img src="image.jpg" width="100" height="10" />
