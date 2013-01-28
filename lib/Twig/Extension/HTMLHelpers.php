@@ -128,7 +128,7 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         if ((isset($_REQUEST[$name]) and $_REQUEST[$name] == $value) or
             (!isset($_REQUEST['submit']) and $default))
         {
-            $options = array_merge(array('checked' => 'checked'),$options);
+            $options = array_merge(array('checked' => 'checked'), $options);
         }
         return $this->inputTag($env, 'checkbox', $name, $value, $options);
     }
