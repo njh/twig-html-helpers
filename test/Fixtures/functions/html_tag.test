@@ -2,7 +2,9 @@
 "html_tag" function
 --TEMPLATE--
 {{ html_tag('br') }}
+{{ html_tag('br', {class: 'break'}) }}
 --DATA--
-return array()
+return array();
 --EXPECT--
 <br />
+<br class="break" />
