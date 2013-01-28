@@ -153,14 +153,14 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
     public function selectTag(Twig_Environment $env, $name, $options, $default = null, $html_options = array())
     {
         $opts = '';
-        foreach ($options as $key => $value) {
-            $arr = array('value' => $value);
-            if ((isset($_REQUEST[$name]) and $_REQUEST[$name] == $value) or
-                (!isset($_REQUEST[$name]) and $default == $value))
+        foreach ($options as $key => $label) {
+            $arr = array('value' => $key);
+            if ((isset($_REQUEST[$name]) and $_REQUEST[$name] == $key) or
+                (!isset($_REQUEST[$name]) and $default == $key))
             {
                 $arr = array_merge(array('selected' => 'selected'),$arr);
             }
-            $opts .= $this->contentTag($env, 'option', $key, $arr);
+            $opts .= $this->contentTag($env, 'option', $label, $arr);
         }
         $html_options = array_merge(
             array('name' => $name, 'id' => $name),
