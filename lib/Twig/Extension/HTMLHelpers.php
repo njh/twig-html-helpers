@@ -169,14 +169,23 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         return "<select".$this->tagOptions($env, $html_options).">$opts</select>";
     }
 
-    public function submitTag(Twig_Environment $env, $name = '', $value = 'Submit', $options = array())
+    public function submitTag(Twig_Environment $env, $value = 'Submit', $options = array())
     {
+        if (isset($options['name'])) {
+            $name = $options['name'];
+        } else {
+            $name = '';
+        }
         return $this->inputTag($env, 'submit', $name, $value, $options);
     }
 
-    public function resetTag(Twig_Environment $env, $name = '', $value = 'Reset', $options = array())
+    public function resetTag(Twig_Environment $env, $value = 'Reset', $options = array())
     {
+        if (isset($options['name'])) {
+            $name = $options['name'];
+        } else {
+            $name = '';
+        }
         return $this->inputTag($env, 'reset', $name, $value, $options);
     }
-
 }
