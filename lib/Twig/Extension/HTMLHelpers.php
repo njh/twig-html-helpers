@@ -1,11 +1,20 @@
 <?php
 
+/*
+ * HTML helpers for Twig.
+ *
+ * (c) 2013 Nicholas Humfrey
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 class Twig_Extension_HTMLHelpers extends Twig_Extension
 {
     public function getName() {
         return 'html_helpers';
     }
- 
+
     public function getFunctions() {
         $options = array('needs_environment' => true, 'is_safe' => array('html'));
         return array(
