@@ -11,11 +11,13 @@
 
 class Twig_Extension_HTMLHelpers extends Twig_Extension
 {
-    public function getName() {
+    public function getName()
+    {
         return 'html_helpers';
     }
 
-    public function getFunctions() {
+    public function getFunctions()
+    {
         $options = array(
             'needs_context' => true,
             'needs_environment' => true,
@@ -42,7 +44,8 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         );
     }
 
-    protected function tagOptions(Twig_Environment $env, $options) {
+    protected function tagOptions(Twig_Environment $env, $options)
+    {
         $html = "";
         foreach ($options as $key => $value) {
             if ($key and $value) {
@@ -54,17 +57,20 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         return $html;
     }
 
-    public function htmlTag(Twig_Environment $env, $context, $name, $options=array()) {
+    public function htmlTag(Twig_Environment $env, $context, $name, $options=array())
+    {
         return "<$name".$this->tagOptions($env, $options)." />";
     }
 
-    public function contentTag(Twig_Environment $env, $context, $name, $content='', $options=array()) {
+    public function contentTag(Twig_Environment $env, $context, $name, $content='', $options=array())
+    {
         return "<$name".$this->tagOptions($env, $options).">".
                twig_escape_filter($env, $content).
                "</$name>";
     }
 
-    public function linkTag(Twig_Environment $env, $context, $title, $url=null, $options=array()) {
+    public function linkTag(Twig_Environment $env, $context, $title, $url=null, $options=array())
+    {
         if (is_null($url)) {
             $url = $title;
         }
