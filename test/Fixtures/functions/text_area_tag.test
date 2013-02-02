@@ -4,9 +4,11 @@
 {{ text_area_tag('name1') }}
 {{ text_area_tag('name2', 'default text') }}
 {{ text_area_tag('name3', 'default text', {cols: 100, rows: 10} ) }}
+{{ text_area_tag('name4', 'default4') }}
 --DATA--
-return array();
+return array('name4' => 'context4');
 --EXPECT--
 <textarea name="name1" id="name1" cols="60" rows="5"></textarea>
 <textarea name="name2" id="name2" cols="60" rows="5">default text</textarea>
 <textarea name="name3" id="name3" cols="100" rows="10">default text</textarea>
+<textarea name="name4" id="name4" cols="60" rows="5">context4</textarea>

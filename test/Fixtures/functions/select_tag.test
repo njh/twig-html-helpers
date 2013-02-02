@@ -3,8 +3,13 @@
 --TEMPLATE--
 {{ select_tag('name1', options) }}
 {{ select_tag('name2', options, 'opt2') }}
+{{ select_tag('name3', options, 'opt2') }}
 --DATA--
-return array('options' => array('opt1' => 'Label 1', 'opt2' => 'Label 2'));
+return array(
+    'options' => array('opt1' => 'Label 1', 'opt2' => 'Label 2'),
+    'name3' => 'opt1'
+);
 --EXPECT--
 <select name="name1" id="name1"><option value="opt1">Label 1</option><option value="opt2">Label 2</option></select>
 <select name="name2" id="name2"><option value="opt1">Label 1</option><option selected="selected" value="opt2">Label 2</option></select>
+<select name="name3" id="name3"><option selected="selected" value="opt1">Label 1</option><option value="opt2">Label 2</option></select>

@@ -2,9 +2,13 @@
 "radio_button_tag" function
 --TEMPLATE--
 {{ radio_button_tag('name1', 'value1') }}
-{{ radio_button_tag('name2', 'value2', 'value2') }}
+{{ radio_button_tag('name2', 'value2', false) }}
+{{ radio_button_tag('name2', 'value3', true) }}
+{{ radio_button_tag('name3', 'value4', false) }}
 --DATA--
-return array();
+return array('name3' => 'value4');
 --EXPECT--
 <input type="radio" name="name1" id="name1_value1" value="value1" />
-<input type="radio" name="name2" id="name2_value2" value="value2" checked="checked" />
+<input type="radio" name="name2" id="name2_value2" value="value2" />
+<input type="radio" name="name2" id="name2_value3" value="value3" checked="checked" />
+<input type="radio" name="name3" id="name3_value4" value="value4" checked="checked" />

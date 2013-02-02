@@ -16,7 +16,12 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
     }
 
     public function getFunctions() {
-        $options = array('needs_environment' => true, 'is_safe' => array('html'));
+        $options = array(
+            'needs_context' => true,
+            'needs_environment' => true,
+            'is_safe' => array('html')
+        );
+
         return array(
             new Twig_SimpleFunction('check_box_tag', array($this, 'checkBoxTag'), $options),
             new Twig_SimpleFunction('content_tag', array($this, 'contentTag'), $options),
@@ -48,32 +53,32 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         }
         return $html;
     }
-   
-    public function htmlTag(Twig_Environment $env, $name, $options=array()) {
+
+    public function htmlTag(Twig_Environment $env, $context, $name, $options=array()) {
         return "<$name".$this->tagOptions($env, $options)." />";
     }
-   
-    public function contentTag(Twig_Environment $env, $name, $content='', $options=array()) {
+
+    public function contentTag(Twig_Environment $env, $context, $name, $content='', $options=array()) {
         return "<$name".$this->tagOptions($env, $options).">".
                twig_escape_filter($env, $content).
                "</$name>";
     }
-    
-    public function linkTag(Twig_Environment $env, $title, $url=null, $options=array()) {
+
+    public function linkTag(Twig_Environment $env, $context, $title, $url=null, $options=array()) {
         if (is_null($url)) {
             $url = $title;
         }
         $options = array_merge(array('href' => $url), $options);
-        return $this->contentTag($env, 'a', $title, $options);
+        return $this->contentTag($env, $context, 'a', $title, $options);
     }
 
-    public function imageTag(Twig_Environment $env, $src, $options=array())
+    public function imageTag(Twig_Environment $env, $context, $src, $options=array())
     {
         $options = array_merge(array('src' => $src), $options);
-        return $this->htmlTag($env, 'img', $options);
+        return $this->htmlTag($env, $context, 'img', $options);
     }
 
-    public function inputTag(Twig_Environment $env, $type, $name, $value=null, $options=array())
+    public function inputTag(Twig_Environment $env, $context, $type, $name, $value=null, $options=array())
     {
         $options = array_merge(
             array(
@@ -84,18 +89,18 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
             ),
             $options
         );
-        return $this->htmlTag($env, 'input', $options);
+        return $this->htmlTag($env, $context, 'input', $options);
     }
 
-    public function textFieldTag(Twig_Environment $env, $name, $default = null, $options = array())
+    public function textFieldTag(Twig_Environment $env, $context, $name, $default = null, $options = array())
     {
-        $value = isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
-        return $this->inputTag($env, 'text', $name, $value, $options);
+        $value = isset($context[$name]) ? $context[$name] : $default;
+        return $this->inputTag($env, $context, 'text', $name, $value, $options);
     }
 
-    public function textAreaTag(Twig_Environment $env, $name, $default = null, $options = array())
+    public function textAreaTag(Twig_Environment $env, $context, $name, $default = null, $options = array())
     {
-        $content = isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
+        $content = isset($context[$name]) ? $context[$name] : $default;
         $options = array_merge(
             array(
                 'name' => $name,
@@ -105,71 +110,68 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
             ),
             $options
         );
-        return $this->contentTag($env, 'textarea', $content, $options);
+        return $this->contentTag($env, $context, 'textarea', $content, $options);
     }
 
 
-    public function hiddenFieldTag(Twig_Environment $env, $name, $default = null, $options = array())
+    public function hiddenFieldTag(Twig_Environment $env, $context, $name, $default = null, $options = array())
     {
-        $value = isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
-        return $this->inputTag($env, 'hidden', $name, $value, $options);
+        $value = isset($context[$name]) ? $context[$name] : $default;
+        return $this->inputTag($env, $context, 'hidden', $name, $value, $options);
     }
 
-    public function passwordFieldTag(Twig_Environment $env, $name = 'password', $default = null, $options = array())
+    public function passwordFieldTag(Twig_Environment $env, $context, $name = 'password', $default = null, $options = array())
     {
-        $value = isset($_REQUEST[$name]) ? $_REQUEST[$name] : $default;
-        return $this->inputTag($env, 'password', $name, $value, $options);
+        $value = isset($context[$name]) ? $context[$name] : $default;
+        return $this->inputTag($env, $context, 'password', $name, $value, $options);
     }
 
-    public function radioButtonTag(Twig_Environment $env, $name, $value, $default = false, $options = array())
+    public function radioButtonTag(Twig_Environment $env, $context, $name, $value, $default = false, $options = array())
     {
-        if ((isset($_REQUEST[$name]) and $_REQUEST[$name] == $value) or
-            (!isset($_REQUEST[$name]) and $default))
+        if ((isset($context[$name]) and $context[$name] === $value) or (!isset($context[$name]) and $default))
         {
             $options = array_merge(array('checked' => 'checked'), $options);
         }
         $options = array_merge(array('id' => $name.'_'.$value), $options);
-        return $this->inputTag($env, 'radio', $name, $value, $options);
+        return $this->inputTag($env, $context, 'radio', $name, $value, $options);
     }
 
-    public function checkBoxTag(Twig_Environment $env, $name, $value = '1', $default = false, $options = array())
+    public function checkBoxTag(Twig_Environment $env, $context, $name, $value = '1', $default = false, $options = array())
     {
-        if ((isset($_REQUEST[$name]) and $_REQUEST[$name] == $value) or
-            (!isset($_REQUEST['submit']) and $default))
+        if ((isset($context[$name]) and $context[$name] === $value) or (!isset($context['submit']) and $default))
         {
             $options = array_merge(array('checked' => 'checked'), $options);
         }
-        return $this->inputTag($env, 'checkbox', $name, $value, $options);
+        return $this->inputTag($env, $context, 'checkbox', $name, $value, $options);
     }
 
-    public function labelTag(Twig_Environment $env, $name, $text = null, $options = array())
+    public function labelTag(Twig_Environment $env, $context, $name, $text = null, $options = array())
     {
-        if ($text == null) {
+        if (is_null($text)) {
             $text = ucwords(str_replace('_', ' ', $name)).': ';
         }
         $options = array_merge(
             array('for' => $name, 'id' => "label_for_$name"),
             $options
         );
-        return $this->contentTag($env, 'label', $text, $options);
+        return $this->contentTag($env, $context, 'label', $text, $options);
     }
 
-    public function labeledTextFieldTag(Twig_Environment $env, $name, $default = null, $options = array())
+    public function labeledTextFieldTag(Twig_Environment $env, $context, $name, $default = null, $options = array())
     {
-        return $this->labelTag($env, $name).$this->textFieldTag($env, $name, $default, $options);
+        return $this->labelTag($env, $context, $name).$this->textFieldTag($env, $context, $name, $default, $options);
     }
 
-    public function selectTag(Twig_Environment $env, $name, $options, $default = null, $html_options = array())
+    public function selectTag(Twig_Environment $env, $context, $name, $options, $default = null, $html_options = array())
     {
         $opts = '';
         foreach ($options as $key => $label) {
             $arr = array('value' => $key);
-            if ((isset($_REQUEST[$name]) and $_REQUEST[$name] == $key) or
-                (!isset($_REQUEST[$name]) and $default == $key))
+            if ((isset($context[$name]) and $context[$name] === $key) or (!isset($context[$name]) and $default === $key))
             {
                 $arr = array_merge(array('selected' => 'selected'),$arr);
             }
-            $opts .= $this->contentTag($env, 'option', $label, $arr);
+            $opts .= $this->contentTag($env, $context, 'option', $label, $arr);
         }
         $html_options = array_merge(
             array('name' => $name, 'id' => $name),
@@ -178,23 +180,23 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         return "<select".$this->tagOptions($env, $html_options).">$opts</select>";
     }
 
-    public function submitTag(Twig_Environment $env, $value = 'Submit', $options = array())
+    public function submitTag(Twig_Environment $env, $context, $value = 'Submit', $options = array())
     {
         if (isset($options['name'])) {
             $name = $options['name'];
         } else {
             $name = '';
         }
-        return $this->inputTag($env, 'submit', $name, $value, $options);
+        return $this->inputTag($env, $context, 'submit', $name, $value, $options);
     }
 
-    public function resetTag(Twig_Environment $env, $value = 'Reset', $options = array())
+    public function resetTag(Twig_Environment $env, $context, $value = 'Reset', $options = array())
     {
         if (isset($options['name'])) {
             $name = $options['name'];
         } else {
             $name = '';
         }
-        return $this->inputTag($env, 'reset', $name, $value, $options);
+        return $this->inputTag($env, $context, 'reset', $name, $value, $options);
     }
 }

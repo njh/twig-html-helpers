@@ -67,5 +67,4 @@ $twig->setLoader(new Twig_Loader_String());
 $template = $twig->loadTemplate($string);
 
 // Render the template
-echo $template->render(array());
-
+echo $template->render($_REQUEST);

@@ -3,8 +3,10 @@
 --TEMPLATE--
 {{ text_field_tag('name1') }}
 {{ text_field_tag('name2', 'value2') }}
+{{ text_field_tag('name3', 'value3') }}
 --DATA--
-return array();
+return array('name3' => 'context3');
 --EXPECT--
 <input type="text" name="name1" id="name1" />
 <input type="text" name="name2" id="name2" value="value2" />
+<input type="text" name="name3" id="name3" value="context3" />
