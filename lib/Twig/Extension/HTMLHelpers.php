@@ -48,7 +48,7 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
     {
         $html = "";
         foreach ($options as $key => $value) {
-            if ($key and $value) {
+            if ($key and (!is_null($value) or !is_bool($value))) {
                 $html .= " ".
                     twig_escape_filter($env, $key)."=\"".
                     twig_escape_filter($env, $value)."\"";
