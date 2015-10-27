@@ -23,5 +23,10 @@ composer.phar:
 
 vendor/bin/phpunit: composer-install
 
+clean:
+	find . -name '.DS_Store' -type f -delete
+	-rm -f composer.phar composer.lock
+	-rm -Rf vendor
+	-rm -Rf coverage
 
-.PHONY: all test
+.PHONY: all test clean
