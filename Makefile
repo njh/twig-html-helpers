@@ -1,6 +1,6 @@
 PHP = $(shell which php)
 PHPUNIT = vendor/bin/phpunit
-PHPUNIT_FLAGS = --verbose --strict
+PHPUNIT_FLAGS = --verbose
 COMPOSER_FLAGS=--no-ansi --verbose --no-interaction
 
 all: test
