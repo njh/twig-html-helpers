@@ -18,7 +18,7 @@ update: composer.phar
 	$(PHP) composer.phar $(COMPOSER_FLAGS) update
 
 composer.phar:
-	curl -s -z composer.phar -o composer.phar http://getcomposer.org/composer.phar
+	curl -s -z composer.phar -o composer.phar https://getcomposer.org/composer.phar
 
 
 vendor/bin/phpunit: composer-install
