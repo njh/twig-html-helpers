@@ -12,10 +12,10 @@ coverage: $(PHPUNIT)
 	$(PHP) $(PHPUNIT) $(PHPUNIT_FLAGS) --coverage-html ./coverage test
 
 composer-install: composer.phar
-	$(PHP) composer.phar $(COMPOSER_FLAGS) install --dev
+	$(PHP) composer.phar $(COMPOSER_FLAGS) install
 
 update: composer.phar
-	$(PHP) composer.phar $(COMPOSER_FLAGS) update --dev
+	$(PHP) composer.phar $(COMPOSER_FLAGS) update
 
 composer.phar:
 	curl -s -z composer.phar -o composer.phar http://getcomposer.org/composer.phar
