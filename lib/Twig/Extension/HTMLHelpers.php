@@ -51,7 +51,7 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
             if ($key and (!is_null($value) and $value !== '')) {
                 $html .= " ".
                     twig_escape_filter($env, $key)."=\"".
-                    twig_escape_filter($env, $value)."\"";
+                    twig_escape_filter($env, $value, 'html_attr')."\"";
             }
         }
         return $html;
