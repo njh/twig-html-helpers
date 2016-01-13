@@ -3,8 +3,10 @@
 --TEMPLATE--
 {{ html_tag('br') }}
 {{ html_tag('br', {class: 'break'}) }}
+{{ html_tag('br', {data: 'See this <b>text</b>, OK?'}) }}
 --DATA--
 return array();
 --EXPECT--
 <br />
 <br class="break" />
+<br data="See&#x20;this&#x20;&lt;b&gt;text&lt;&#x2F;b&gt;,&#x20;OK&#x3F;" />
