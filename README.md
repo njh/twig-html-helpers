@@ -1,5 +1,7 @@
 Twig HTML Helpers Extension
-==========================
+===========================
+
+[![Build Status](https://travis-ci.org/njh/twig-html-helpers.svg?branch=master)](https://travis-ci.org/njh/twig-html-helpers)
 
 This [PHP Twig] extension adds the following Rails style HTML helpers:
 
