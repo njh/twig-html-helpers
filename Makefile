@@ -6,10 +6,10 @@ COMPOSER_FLAGS=--no-ansi --verbose --no-interaction
 all: test
 
 test: $(PHPUNIT)
-	$(PHP) $(PHPUNIT) $(PHPUNIT_FLAGS) test
+	$(PHP) $(PHPUNIT) $(PHPUNIT_FLAGS) ./test
 
 coverage: $(PHPUNIT)
-	$(PHP) $(PHPUNIT) $(PHPUNIT_FLAGS) --coverage-html ./coverage test
+	$(PHP) $(PHPUNIT) $(PHPUNIT_FLAGS) --coverage-html ./coverage ./test
 
 composer-install: composer.phar
 	$(PHP) composer.phar $(COMPOSER_FLAGS) install
