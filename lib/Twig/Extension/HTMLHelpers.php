@@ -100,13 +100,13 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
 
     public function textFieldTag(Twig_Environment $env, $context, $name, $default = null, $options = array())
     {
-        $value = isset($context[$name]) ? $context[$name] : $default;
+        $value = $this->getContextVariable($context, $name, $default);
         return $this->inputTag($env, $context, 'text', $name, $value, $options);
     }
 
     public function textAreaTag(Twig_Environment $env, $context, $name, $default = null, $options = array())
     {
-        $content = isset($context[$name]) ? $context[$name] : $default;
+	      $content = $this->getContextVariable($context, $name, $default);
         $options = array_merge(
             array(
                 'name' => $name,
@@ -119,22 +119,21 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         return $this->contentTag($env, $context, 'textarea', $content, $options);
     }
 
-
     public function hiddenFieldTag(Twig_Environment $env, $context, $name, $default = null, $options = array())
     {
-        $value = isset($context[$name]) ? $context[$name] : $default;
+	      $value = $this->getContextVariable($context, $name, $default);
         return $this->inputTag($env, $context, 'hidden', $name, $value, $options);
     }
 
     public function passwordFieldTag(Twig_Environment $env, $context, $name = 'password', $default = null, $options = array())
     {
-        $value = isset($context[$name]) ? $context[$name] : $default;
+	      $value = $this->getContextVariable($context, $name, $default);
         return $this->inputTag($env, $context, 'password', $name, $value, $options);
     }
 
     public function radioButtonTag(Twig_Environment $env, $context, $name, $value, $default = false, $options = array())
     {
-        if ((isset($context[$name]) and $context[$name] === $value) or (!isset($context[$name]) and $default))
+        if ((null !== $this->getContextVariable($context, $name, null)) or (!isset($context[$name]) and $default))
         {
             $options = array_merge(array('checked' => 'checked'), $options);
         }
@@ -144,7 +143,7 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
 
     public function checkBoxTag(Twig_Environment $env, $context, $name, $value = '1', $default = false, $options = array())
     {
-        if ((isset($context[$name]) and $context[$name] === $value) or (!isset($context['submit']) and $default))
+        if ((null !== $this->getContextVariable($context, $name, null)) or (!isset($context['submit']) and $default))
         {
             $options = array_merge(array('checked' => 'checked'), $options);
         }
@@ -173,14 +172,14 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         $opts = '';
         foreach ($options as $key => $label) {
             $arr = array('value' => $key);
-            if ((isset($context[$name]) and $context[$name] === $key) or (!isset($context[$name]) and $default === $key))
+            if ((isset($context[$name]) and ($context[$name] === $key or (is_array($context[$name]) and in_array($key, $context[$name], true)) )) or (!isset($context[$name]) and $default === $key))
             {
                 $arr = array_merge(array('selected' => 'selected'),$arr);
             }
             $opts .= $this->contentTag($env, $context, 'option', $label, $arr);
         }
         $html_options = array_merge(
-            array('name' => $name, 'id' => $name),
+            array('name' => empty($html_options['multiple']) ? $name : "{$name}[]", 'id' => $name),
             $html_options
         );
         return "<select".$this->tagOptions($env, $html_options).">$opts</select>";
@@ -205,4 +204,58 @@ class Twig_Extension_HTMLHelpers extends Twig_Extension
         }
         return $this->inputTag($env, $context, 'reset', $name, $value, $options);
     }
+
+		protected function getContextVariable($context, $name, $defaultValue)
+		{
+			if (FALSE === strpos($name, '[')) return isset($context[$name]) ? $context[$name] : $defaultValue;
+
+			// Parse html (array[key]) into the variable array.key
+			$replaces = array(
+				'][' => '.', // middle
+				']' => '', // end
+				'[' => '.' // beginning
+			);
+			$key = str_replace(array_keys($replaces), array_values($replaces), $name);
+
+			return $this->getNested($context, $key, $defaultValue);
+		}
+
+		/**
+	  * Retrieves a nested element from an array or $default if it doesn't exist
+		* Ported from: axelarge/array-tools/src/Axelarge/ArrayTools/Arr.php:118
+	  *
+	  * <code>
+	  * $friends = [
+	  *      'Alice' => ['age' => 33, 'hobbies' => ['biking', 'skiing']],
+	  *      'Bob' => ['age' => 29],
+	  * ];
+	  *
+	  * Arr::getNested($friends, 'Alice.hobbies.1'); //=> 'skiing'
+	  * Arr::getNested($friends, ['Alice', 'hobbies', 1]); //=> 'skiing'
+	  * Arr::getNested($friends, 'Bob.hobbies.0', 'none'); //=> 'none'
+	  * </code>
+	  *
+	  * @param array $array
+	  * @param string|array $keys The key path as either an array or a dot-separated string
+	  * @param mixed $default
+	  * @return mixed
+	  */
+	 protected function getNested($array, $keys, $default = null)
+	 {
+	     if (is_string($keys)) {
+	         $keys = explode('.', $keys);
+	     } else if ($keys === null) {
+	         return $array;
+	     }
+
+	     foreach ($keys as $key) {
+	         if (is_array($array) && array_key_exists($key, $array)) {
+	             $array = $array[$key];
+	         } else {
+	             return $default;
+	         }
+	     }
+
+	     return $array;
+	 }
 }
